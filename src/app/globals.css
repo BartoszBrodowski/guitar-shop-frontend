@@ -57,3 +57,9 @@
 		@apply bg-background text-foreground;
 	}
 }
+
+@layer components {
+	.font-cal-sans {
+		font-family: 'Cal Sans';
+	}
+}

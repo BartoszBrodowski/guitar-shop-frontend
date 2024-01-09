@@ -16,7 +16,9 @@ const Hero = () => {
 				/>
 			</div>
 			<div className='flex flex-col items-start justify-center gap-2'>
-				<h1 className='text-primary-black font-semibold text-6xl break-words'>START STRUMMING</h1>
+				<h1 className='text-primary-black font-semibold text-6xl break-words font-cal-sans'>
+					START STRUMMING
+				</h1>
 				<p className='text-gray-500 mb-4 text-2xl'>Can&apos;t strum without a proper guitar...</p>
 				<Link href='/shop/guitars'>
 					<Button className='w-[200px]' size={'lg'}>

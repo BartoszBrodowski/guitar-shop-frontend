@@ -754,6 +754,11 @@ busboy@1.6.0:
   dependencies:
     streamsearch "^1.1.0"
 
+cal-sans@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/cal-sans/-/cal-sans-1.0.1.tgz#691bbf04ae5cabd1f827dd842923cee419f57aa9"
+  integrity sha512-XwN3/7jez8WmFVcNnNqO2K9lh133KiIcURCyGFnSM+ZmNZ8zIcOTNfr3SpenLAkRceYsq+fQNX/PL4C1rIkEPQ==
+
 call-bind@^1.0.0, call-bind@^1.0.2, call-bind@^1.0.4, call-bind@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/call-bind/-/call-bind-1.0.5.tgz#6fa2b7845ce0ea49bf4d8b9ef64727a2c2e2e513"

@@ -30,7 +30,7 @@ const Navbar = () => {
 							<NavigationMenuItem>
 								<NavigationMenuTrigger className='text-xl'>Shop</NavigationMenuTrigger>
 								<NavigationMenuContent>
-									<ul className='grid grid-cols-2 gap-3 p-6 md:w-[400px] lg:w-[500px]'>
+									<ul className='grid grid-cols-2 gap-3 p-6 md:w-[400px] lg:w-[500px] font-cal-sans'>
 										<div className='col-span-1'>
 											<NavigationMenuLink href='/shop/guitars'>
 												<h2 className='text-2xl font-semibold'>Guitars</h2>

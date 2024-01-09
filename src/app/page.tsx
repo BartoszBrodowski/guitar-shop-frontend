@@ -1,4 +1,5 @@
 import Hero from '@/components/Hero';
+import 'cal-sans';
 
 export default async function Home() {
 	return (
