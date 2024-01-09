@@ -3,16 +3,54 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL")
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
+enum GeneralGuitarType {
+  ACOUSTIC
+  ELECTRIC
+  BASS
+}
+
+enum SpecificGuitarType {
+  STRATOCASTER
+  TELECASTER
+  LES_PAUL
+}
+
+enum OrderItem {
+  GUITAR
+  STRINGS
+}
+
 model Guitar {
-  id                Int      @id @default(autoincrement())
-  name              String
-  manufacturerName  String
-  year              Int
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  id               Int                @id @default(autoincrement())
+  name             String
+  manufacturerName String
+  year             Int
+  stockAmount      Int
+  generalType      GeneralGuitarType
+  specificType     SpecificGuitarType
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+}
+
+model Customer {
+  id        Int      @id @default(autoincrement())
+  firstName String
+  lastName  String
+  email     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Order     Order[]
+}
+
+model Order {
+  id         Int         @id @default(autoincrement())
+  createdAt  DateTime    @default(now())
+  customerId Int
+  customer   Customer    @relation(fields: [customerId], references: [id])
+  orderItems OrderItem[]
 }

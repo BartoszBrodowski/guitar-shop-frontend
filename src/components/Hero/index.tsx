@@ -8,7 +8,7 @@ const Hero = () => {
 		<div className='grid grid-cols-2 items-center h-screen'>
 			<div className='flex justify-center items-center'>
 				<Image
-					className='rotate-45'
+					className='rotate-45 w-auto h-auto'
 					width='400'
 					height='500'
 					src='/HeroGuitar.png'
