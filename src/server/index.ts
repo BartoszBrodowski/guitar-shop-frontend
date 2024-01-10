@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { GeneralGuitarType, PrismaClient, SpecificGuitarType } from '@prisma/client';
 import { publicProcedure, router } from './trpc';
 import { z } from 'zod';
 
@@ -22,8 +22,8 @@ export const appRouter = router({
 				year: z.number(),
 				stockAmount: z.number(),
 				soldAmount: z.number(),
-				generalType: z.string(),
-				specificType: z.string(),
+				generalType: z.nativeEnum(GeneralGuitarType),
+				specificType: z.nativeEnum(SpecificGuitarType),
 				price: z.number(),
 				imageUrl: z.string(),
 			})
