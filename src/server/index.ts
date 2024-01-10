@@ -15,13 +15,29 @@ export const appRouter = router({
 		return allGuitars;
 	}),
 	guitarCreate: publicProcedure
-		.input(z.object({ name: z.string(), manufacturerName: z.string(), year: z.number() }))
+		.input(
+			z.object({
+				name: z.string(),
+				manufacturerName: z.string(),
+				year: z.number(),
+				stockAmount: z.number(),
+				soldAmount: z.number(),
+				generalType: z.string(),
+				specificType: z.string(),
+				price: z.number(),
+				imageUrl: z.string(),
+			})
+		)
 		.mutation(async (opts) => {
 			const { input } = opts;
 
 			const guitar = await prisma.guitar.create({ data: input });
 			return guitar;
 		}),
+	findBestSellingItems: publicProcedure.query(async () => {
+		const result = await prisma.guitar.findMany({ take: 5, orderBy: [{ soldAmount: 'asc' }] });
+		return result;
+	}),
 });
 
 export type AppRouter = typeof appRouter;

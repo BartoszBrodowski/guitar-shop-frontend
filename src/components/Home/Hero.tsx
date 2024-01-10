@@ -5,12 +5,12 @@ import { Button } from '../ui/button';
 
 const Hero = () => {
 	return (
-		<div className='grid grid-cols-2 items-center h-screen'>
+		<div className='grid grid-cols-2 items-center my-24'>
 			<div className='flex justify-center items-center'>
 				<Image
 					className='rotate-45 w-auto h-auto'
-					width='400'
-					height='500'
+					width='300'
+					height='450'
 					src='/HeroGuitar.png'
 					alt='Les Paul type guitar drawing'
 				/>

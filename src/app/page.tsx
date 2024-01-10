@@ -1,9 +1,9 @@
-import Hero from '@/components/Hero';
+import Hero from '@/components/Home';
 import 'cal-sans';
 
 export default async function Home() {
 	return (
-		<main className='flex min-h-screen flex-col items-center justify-between px-24'>
+		<main className='flex min-h-screen flex-col items-center justify-between p-24 pt-0 mx-24'>
 			<Hero />
 		</main>
 	);

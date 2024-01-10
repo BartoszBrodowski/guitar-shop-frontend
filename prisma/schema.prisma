@@ -31,8 +31,11 @@ model Guitar {
   manufacturerName String
   year             Int
   stockAmount      Int
+  soldAmount       Int
   generalType      GeneralGuitarType
   specificType     SpecificGuitarType
+  price            Int
+  imageUrl         String
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
 }
