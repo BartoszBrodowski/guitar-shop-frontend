@@ -1,4 +1,5 @@
-import React from 'react';
+import { Guitar } from '@prisma/client';
+import { FunctionComponent } from 'react';
 import {
 	Carousel,
 	CarouselContent,
@@ -6,9 +7,13 @@ import {
 	CarouselNext,
 	CarouselPrevious,
 } from '../ui/carousel';
-import { Card, CardContent } from '../ui/card';
+import FeaturedItem from './FeatureItem';
 
-const FeaturedItems = () => {
+interface FeaturedItemsProps {
+	featuredItems: Guitar[];
+}
+
+const FeaturedItems: FunctionComponent<FeaturedItemsProps> = ({ featuredItems }) => {
 	return (
 		<div className='w-full'>
 			<h1 className='text-3xl font-semibold font-cal-sans'>Best Sellers!</h1>
@@ -17,14 +22,10 @@ const FeaturedItems = () => {
 			</p>
 			<Carousel className='w-full'>
 				<CarouselContent className='w-full'>
-					{Array.from({ length: 10 }).map((_, index) => (
+					{featuredItems.map((item, index) => (
 						<CarouselItem key={index} className='max-w-xs'>
 							<div className='p-1'>
-								<Card>
-									<CardContent className='flex aspect-square items-center justify-center p-6'>
-										<span className='text-4xl font-semibold'>{index + 1}</span>
-									</CardContent>
-								</Card>
+								<FeaturedItem item={item} />
 							</div>
 						</CarouselItem>
 					))}
