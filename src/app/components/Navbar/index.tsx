@@ -17,10 +17,10 @@ import * as React from 'react';
 
 const Navbar = () => {
 	return (
-		<div className='flex justify-center relative w-full'>
-			<div className='flex justify-center items-center absolute w-full'>
+		<div className='flex justify-center fixed w-full h-20 blur-background z-30 border-b-[1px]'>
+			<div className='flex justify-center items-center w-full'>
 				<div className='flex justify-start basis-2/6'>
-					<Link className='ml-8 ' href='/home'>
+					<Link className='ml-8 ' href='/'>
 						<HomeIcon className='w-8 h-8' />
 					</Link>
 				</div>
@@ -30,7 +30,7 @@ const Navbar = () => {
 							<NavigationMenuItem>
 								<NavigationMenuTrigger className='text-xl'>Shop</NavigationMenuTrigger>
 								<NavigationMenuContent>
-									<ul className='grid grid-cols-2 gap-3 p-6 md:w-[400px] lg:w-[500px] font-cal-sans'>
+									<ul className='grid grid-cols-2 gap-3 p-6 md:w-[400px] lg:w-[500px]'>
 										<div className='col-span-1'>
 											<NavigationMenuLink href='/shop/guitars'>
 												<h2 className='text-2xl font-semibold'>Guitars</h2>
