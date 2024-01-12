@@ -17,7 +17,7 @@ import * as React from 'react';
 
 const Navbar = () => {
 	return (
-		<div className='flex justify-center fixed w-full h-20 blur-background z-30 border-b-[1px]'>
+		<div className='flex justify-center sticky w-full h-20 blur-background z-30 border-b-[1px]'>
 			<div className='flex justify-center items-center w-full'>
 				<div className='flex justify-start basis-2/6'>
 					<Link className='ml-8 ' href='/'>

@@ -1,8 +1,7 @@
-import { GeneralGuitarType, PrismaClient, SpecificGuitarType } from '@prisma/client';
+import { GeneralGuitarType, SpecificGuitarType } from '@prisma/client';
 import { publicProcedure, router } from './trpc';
 import { z } from 'zod';
-
-const prisma = new PrismaClient();
+import prisma from './prismaClient';
 
 export const appRouter = router({
 	findGuitarById: publicProcedure.input(z.object({ id: z.number() })).query(async ({ input }) => {
@@ -14,6 +13,24 @@ export const appRouter = router({
 		const allGuitars = await prisma.guitar.findMany();
 		return allGuitars;
 	}),
+	getGuitarPage: publicProcedure
+		.input(
+			z.object({
+				page: z.number(),
+				perPage: z.number(),
+			})
+		)
+		.query(async ({ input }) => {
+			const { page, perPage } = input;
+			const guitars = await prisma.guitar.findMany({ skip: (page - 1) * perPage, take: perPage });
+
+			const totalGuitarsCount = await prisma.guitar.count();
+
+			return {
+				guitars,
+				totalGuitarsCount,
+			};
+		}),
 	guitarCreate: publicProcedure
 		.input(
 			z.object({
@@ -35,7 +52,7 @@ export const appRouter = router({
 			return guitar;
 		}),
 	findBestSellingItems: publicProcedure.query(async () => {
-		const result = await prisma.guitar.findMany({ take: 5, orderBy: [{ soldAmount: 'asc' }] });
+		const result = await prisma.guitar.findMany({ take: 10, orderBy: [{ soldAmount: 'asc' }] });
 		return result;
 	}),
 });
