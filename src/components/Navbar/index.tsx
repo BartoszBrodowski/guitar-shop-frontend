@@ -4,8 +4,8 @@ import {
 	NavigationMenu,
 	NavigationMenuContent,
 	NavigationMenuItem,
-	NavigationMenuLink,
 	NavigationMenuList,
+	NavigationMenuLink,
 	NavigationMenuTrigger,
 	navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
@@ -32,39 +32,47 @@ const Navbar = () => {
 								<NavigationMenuContent>
 									<ul className='grid grid-cols-2 gap-3 p-6 md:w-[400px] lg:w-[500px]'>
 										<div className='col-span-1'>
-											<NavigationMenuLink href='/shop/guitars'>
+											<Link href='/shop/guitars'>
 												<h2 className='text-2xl font-semibold'>Guitars</h2>
-											</NavigationMenuLink>
+											</Link>
 											<ul className='flex flex-col'>
-												<NavigationMenuLink
+												<Link
 													href='/guitars/fender'
 													className='w-full hover:bg-gray-100 rounded p-1 text-muted-foreground'>
 													Fender
-												</NavigationMenuLink>
-												<NavigationMenuLink className='w-full hover:bg-gray-100 rounded p-1 text-muted-foreground'>
+												</Link>
+												<Link
+													href='#'
+													className='w-full hover:bg-gray-100 rounded p-1 text-muted-foreground'>
 													Gibson
-												</NavigationMenuLink>
-												<NavigationMenuLink className='w-full hover:bg-gray-100 rounded p-1 text-muted-foreground'>
+												</Link>
+												<Link
+													href='#'
+													className='w-full hover:bg-gray-100 rounded p-1 text-muted-foreground'>
 													Gretsch
-												</NavigationMenuLink>
+												</Link>
 											</ul>
 										</div>
 										<div>
-											<NavigationMenuLink href='/shop/strings'>
+											<Link href='/shop/strings'>
 												<h2 className='text-2xl font-semibold'>Strings</h2>
-											</NavigationMenuLink>
+											</Link>
 											<ul className='flex flex-col'>
-												<NavigationMenuLink
+												<Link
 													href='/guitars/fender'
 													className='w-full hover:bg-gray-100 rounded p-1 text-muted-foreground'>
 													Fender
-												</NavigationMenuLink>
-												<NavigationMenuLink className='w-full hover:bg-gray-100 rounded p-1 text-muted-foreground'>
+												</Link>
+												<Link
+													href='#'
+													className='w-full hover:bg-gray-100 rounded p-1 text-muted-foreground'>
 													Gibson
-												</NavigationMenuLink>
-												<NavigationMenuLink className='w-full hover:bg-gray-100 rounded p-1 text-muted-foreground'>
+												</Link>
+												<Link
+													href='#'
+													className='w-full hover:bg-gray-100 rounded p-1 text-muted-foreground'>
 													Gretsch
-												</NavigationMenuLink>
+												</Link>
 											</ul>
 										</div>
 									</ul>
@@ -72,20 +80,16 @@ const Navbar = () => {
 							</NavigationMenuItem>
 							<NavigationMenuItem>
 								<Link href='/about' legacyBehavior passHref>
-									<NavigationMenuLink
-										href='/'
-										className={'text-xl ' + navigationMenuTriggerStyle()}>
+									<Link href='/' className={'text-xl ' + navigationMenuTriggerStyle()}>
 										About
-									</NavigationMenuLink>
+									</Link>
 								</Link>
 							</NavigationMenuItem>
 							<NavigationMenuItem>
 								<Link href='/contact' legacyBehavior passHref>
-									<NavigationMenuLink
-										href='/'
-										className={'text-xl ' + navigationMenuTriggerStyle()}>
+									<Link href='/' className={'text-xl ' + navigationMenuTriggerStyle()}>
 										Contact
-									</NavigationMenuLink>
+									</Link>
 								</Link>
 							</NavigationMenuItem>
 						</NavigationMenuList>
@@ -105,7 +109,7 @@ const ListItem = React.forwardRef<React.ElementRef<'a'>, React.ComponentPropsWit
 	({ className, title, children, ...props }, ref) => {
 		return (
 			<li>
-				<NavigationMenuLink asChild>
+				<NavigationMenuLink>
 					<a
 						ref={ref}
 						className={cn(

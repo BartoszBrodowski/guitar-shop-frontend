@@ -2,7 +2,12 @@
 const nextConfig = {
 	reactStrictMode: true,
 	images: {
-		domains: ['thumbs.static-thomann.de'],
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: 'thumbs.static-thomann.de',
+			},
+		],
 	},
 	async headers() {
 		return [

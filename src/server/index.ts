@@ -1,7 +1,7 @@
-import { GeneralGuitarType, SpecificGuitarType } from '@prisma/client';
 import { publicProcedure, router } from './trpc';
 import { z } from 'zod';
 import prisma from './prismaClient';
+import { Kind, Type } from '@prisma/client';
 
 export const appRouter = router({
 	findGuitarById: publicProcedure.input(z.object({ id: z.number() })).query(async ({ input }) => {
@@ -31,6 +31,16 @@ export const appRouter = router({
 				totalGuitarsCount,
 			};
 		}),
+	getGuitarKinds: publicProcedure.query(async () => {
+		const kinds = await prisma.guitar.findMany({ select: { type: true }, distinct: ['kind'] });
+		return kinds;
+	}),
+	findGuitarsByKind: publicProcedure
+		.input(z.object({ kind: z.nativeEnum(Kind) }))
+		.query(async ({ input }) => {
+			const result = await prisma.guitar.findMany({ where: { kind: input.kind } });
+			return result;
+		}),
 	guitarCreate: publicProcedure
 		.input(
 			z.object({
@@ -39,8 +49,8 @@ export const appRouter = router({
 				year: z.number(),
 				stockAmount: z.number(),
 				soldAmount: z.number(),
-				generalType: z.nativeEnum(GeneralGuitarType),
-				specificType: z.nativeEnum(SpecificGuitarType),
+				type: z.nativeEnum(Type),
+				kind: z.nativeEnum(Kind),
 				price: z.number(),
 				imageUrl: z.string(),
 			})

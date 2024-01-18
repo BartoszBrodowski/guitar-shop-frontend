@@ -7,7 +7,7 @@ import {
 	CarouselNext,
 	CarouselPrevious,
 } from '../ui/carousel';
-import FeaturedItem from './FeatureItem';
+import ItemCard from './ItemCard';
 
 interface FeaturedItemsProps {
 	featuredItems: Guitar[];
@@ -25,7 +25,7 @@ const FeaturedItems: FunctionComponent<FeaturedItemsProps> = ({ featuredItems })
 					{featuredItems.map((item, index) => (
 						<CarouselItem key={index} className='max-w-xs'>
 							<div className='p-1'>
-								<FeaturedItem item={item} />
+								<ItemCard item={item} />
 							</div>
 						</CarouselItem>
 					))}

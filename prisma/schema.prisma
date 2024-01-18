@@ -8,36 +8,21 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
-enum GeneralGuitarType {
-  ACOUSTIC
-  ELECTRIC
-  BASS
-}
-
-enum SpecificGuitarType {
-  STRATOCASTER
-  TELECASTER
-  LES_PAUL
-}
-
-enum OrderItem {
-  GUITAR
-  STRINGS
-}
-
 model Guitar {
-  id               Int                @id @default(autoincrement())
+  id               Int      @id @default(autoincrement())
   name             String
   manufacturerName String
   year             Int
   stockAmount      Int
   soldAmount       Int
-  generalType      GeneralGuitarType
-  specificType     SpecificGuitarType
+  type             Type     @map("generalType")
+  kind             Kind     @map("specificType")
   price            Int
+  reviewScore      Int      @default(0)
   imageUrl         String
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  reviews          Review[]
 }
 
 model Customer {
@@ -47,13 +32,43 @@ model Customer {
   email     String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Order     Order[]
+  orders    Order[]
+  reviews   Review[]
 }
 
 model Order {
   id         Int         @id @default(autoincrement())
   createdAt  DateTime    @default(now())
   customerId Int
-  customer   Customer    @relation(fields: [customerId], references: [id])
   orderItems OrderItem[]
+  customer   Customer    @relation(fields: [customerId], references: [id])
+}
+
+model Review {
+  id         Int      @id @default(autoincrement())
+  guitarId   Int
+  customerId Int
+  score      Int
+  comment    String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  customer   Customer @relation(fields: [customerId], references: [id])
+  guitar     Guitar   @relation(fields: [guitarId], references: [id])
+}
+
+enum Type {
+  ACOUSTIC
+  ELECTRIC
+  BASS
+}
+
+enum Kind {
+  STRATOCASTER
+  TELECASTER
+  LES_PAUL
+}
+
+enum OrderItem {
+  GUITAR
+  STRINGS
 }
