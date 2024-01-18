@@ -19,7 +19,7 @@ const PaginationControl: FunctionComponent<PaginationControlProps> = ({
 	const searchParams = useSearchParams();
 
 	const changePage = (clickedPage: number) => {
-		router.push(`?page=${clickedPage}&per_page=${perPage}`);
+		router.push(`?page=${clickedPage}&per-page=${perPage}`);
 	};
 
 	return (

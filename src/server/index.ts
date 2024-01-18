@@ -18,11 +18,17 @@ export const appRouter = router({
 			z.object({
 				page: z.number(),
 				perPage: z.number(),
+				sortOrder: z.string(),
+				sortField: z.string(),
 			})
 		)
 		.query(async ({ input }) => {
-			const { page, perPage } = input;
-			const guitars = await prisma.guitar.findMany({ skip: (page - 1) * perPage, take: perPage });
+			const { page, perPage, sortOrder, sortField } = input;
+			const guitars = await prisma.guitar.findMany({
+				skip: (page - 1) * perPage,
+				take: perPage,
+				orderBy: [{ [sortField]: sortOrder }],
+			});
 
 			const totalGuitarsCount = await prisma.guitar.count();
 
@@ -32,7 +38,7 @@ export const appRouter = router({
 			};
 		}),
 	getGuitarKinds: publicProcedure.query(async () => {
-		const kinds = await prisma.guitar.findMany({ select: { type: true }, distinct: ['kind'] });
+		const kinds = await prisma.guitar.findMany({ select: { type: true }, distinct: ['type'] });
 		return kinds;
 	}),
 	findGuitarsByKind: publicProcedure
@@ -65,6 +71,12 @@ export const appRouter = router({
 		const result = await prisma.guitar.findMany({ take: 10, orderBy: [{ soldAmount: 'asc' }] });
 		return result;
 	}),
+	deleteGuitarById: publicProcedure
+		.input(z.object({ id: z.number() }))
+		.mutation(async ({ input }) => {
+			const result = await prisma.guitar.delete({ where: { id: input.id } });
+			return result;
+		}),
 });
 
 export type AppRouter = typeof appRouter;

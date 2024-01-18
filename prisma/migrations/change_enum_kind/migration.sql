@@ -2,7 +2,7 @@
 CREATE TYPE "Type" AS ENUM ('ACOUSTIC', 'ELECTRIC', 'BASS');
 
 -- CreateEnum
-CREATE TYPE "Kind" AS ENUM ('STRATOCASTER', 'TELECASTER', 'LES_PAUL');
+CREATE TYPE "Kind" AS ENUM ('STRATOCASTER', 'TELECASTER', 'LES_PAUL', 'SIZE_1_2');
 
 -- CreateEnum
 CREATE TYPE "OrderItem" AS ENUM ('GUITAR', 'STRINGS');
@@ -15,8 +15,8 @@ CREATE TABLE "Guitar" (
     "year" INTEGER NOT NULL,
     "stockAmount" INTEGER NOT NULL,
     "soldAmount" INTEGER NOT NULL,
-    "type" "Type" NOT NULL,
-    "kind" "Kind" NOT NULL,
+    "generalType" "Type" NOT NULL,
+    "specificType" "Kind" NOT NULL,
     "price" INTEGER NOT NULL,
     "reviewScore" INTEGER NOT NULL DEFAULT 0,
     "imageUrl" TEXT NOT NULL,
@@ -73,8 +73,3 @@ ALTER TABLE "Review" ADD CONSTRAINT "Review_customerId_fkey" FOREIGN KEY ("custo
 -- AddForeignKey
 ALTER TABLE "Review" ADD CONSTRAINT "Review_guitarId_fkey" FOREIGN KEY ("guitarId") REFERENCES "Guitar"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
--- Change column name from "generalType" to "type"
-ALTER TABLE "Guitar" RENAME COLUMN "generalType" TO "type";
-
--- Change column name from "specificType" to "kind"
-ALTER TABLE "Guitar" RENAME COLUMN "specificType" TO "kind";

@@ -8,13 +8,16 @@ const Guitars = async ({
 	searchParams: { [key: string]: string | string[] | undefined };
 }) => {
 	const page = Number(searchParams['page'] ?? '1');
-	const perPage = Number(searchParams['per_page'] ?? '9');
+	const perPage = Number(searchParams['per-page'] ?? '9');
+	const sortBy = searchParams['sort-by'] ?? 'createdAt';
+	const sortOrder = searchParams['sort-order'] ?? 'desc';
 
 	const { guitars, totalGuitarsCount } = await serverClient.getGuitarPage({
 		page: page,
 		perPage: perPage,
+		sortField: sortBy as string,
+		sortOrder: sortOrder as string,
 	});
-
 	const totalPages = Math.ceil(totalGuitarsCount / perPage);
 
 	return (

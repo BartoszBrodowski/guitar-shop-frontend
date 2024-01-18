@@ -66,6 +66,7 @@ enum Kind {
   STRATOCASTER
   TELECASTER
   LES_PAUL
+  SIZE_1_2
 }
 
 enum OrderItem {

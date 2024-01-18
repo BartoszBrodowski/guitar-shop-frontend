@@ -18,7 +18,7 @@ const ItemCard: FunctionComponent<ItemCardProps> = ({ simple, item, className })
 		<div className={className}>
 			<Card className='relative'>
 				<CardContent className='flex aspect-square items-center justify-center p-6'>
-					<Image src={item.imageUrl} alt={item.name} width={200} height={200} />
+					<Image src={item.imageUrl} alt={item.name} width={200} height={100} />
 				</CardContent>
 				{/* <p className='text-xl absolute bottom-2 right-2'>{item.price}$</p> */}
 			</Card>

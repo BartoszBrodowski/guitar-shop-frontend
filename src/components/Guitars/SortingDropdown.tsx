@@ -11,23 +11,45 @@ import {
 import React, { FunctionComponent, useState } from 'react';
 import { Button } from '../ui/button';
 import { Guitar } from '@prisma/client';
+import { useRouter } from 'next/navigation';
 
-interface SortingDropdownProps {
-	guitarList: Guitar[];
-	sortGuitarList: (field: string) => Guitar[];
+enum Filter {
+	Newest = 'Newest',
+	PriceLowToHigh = 'Price: Low to High',
+	PriceHighToLow = 'Price: High to Low',
+	BestSelling = 'Best Selling',
 }
 
-const filters = ['Newest', 'Price: Low to High', 'Price: High to Low', 'Best Selling'];
+enum FilterField {
+	CreatedAt = 'createdAt',
+	Price = 'price',
+	SoldAmount = 'soldAmount',
+}
 
-const SortingDropdown: FunctionComponent<SortingDropdownProps> = ({
-	guitarList,
-	sortGuitarList,
-}) => {
+enum SortOrder {
+	Asc = 'asc',
+	Desc = 'desc',
+}
+
+type FilterOption = {
+	label: string;
+	field: FilterField;
+	sortOrder: SortOrder;
+};
+
+const filterOptions: FilterOption[] = [
+	{ label: 'Newest', field: FilterField.CreatedAt, sortOrder: SortOrder.Desc },
+	{ label: 'Price: Low to High', field: FilterField.Price, sortOrder: SortOrder.Asc },
+	{ label: 'Price: High to Low', field: FilterField.Price, sortOrder: SortOrder.Desc },
+	{ label: 'Best Selling', field: FilterField.SoldAmount, sortOrder: SortOrder.Desc },
+];
+
+const SortingDropdown: FunctionComponent = () => {
 	const [sort, setSort] = useState<string>('Newest');
-
-	const changeSortField = async (field: string) => {
-		setSort(field);
-		sortGuitarList(field);
+	const router = useRouter();
+	const changeSort = (label: string, kind: FilterField, sortOrder: SortOrder) => {
+		setSort(label);
+		router.push(`?sort-by=${kind}&sort-order=${sortOrder}`);
 	};
 	return (
 		<DropdownMenu>
@@ -40,14 +62,14 @@ const SortingDropdown: FunctionComponent<SortingDropdownProps> = ({
 			<DropdownMenuRadioGroup value={sort}>
 				<DropdownMenuContent className='w-[230px]'>
 					<ul className='flex flex-col'>
-						{filters.map((field, index) => {
+						{filterOptions.map((option, index) => {
 							return (
 								<DropdownMenuRadioItem
-									onClick={async () => await sortGuitarList(field)}
-									value={field}
+									onClick={() => changeSort(option.label, option.field, option.sortOrder)}
+									value={option.label}
 									className='hover:cursor-pointer w-full'
 									key={index}>
-									{field}
+									{option.label}
 								</DropdownMenuRadioItem>
 							);
 						})}
