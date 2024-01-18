@@ -1,18 +1,22 @@
-import { Guitar } from '@prisma/client';
+import { serverClient } from '@/app/_trpc/serverClient';
 import { FunctionComponent } from 'react';
 import { Card, CardContent, CardHeader } from '../ui/card';
-import SortingDropdown from './SortingDropdown';
-import { serverClient } from '@/app/_trpc/serverClient';
 import FilterCheckboxes from './FilterCheckboxes';
+import SortingDropdown from './SortingDropdown';
 
-const Filters: FunctionComponent = async () => {
-	const guitarKinds = await serverClient.getGuitarKinds();
-	console.log(guitarKinds);
+interface FiltersProps {
+	sortOrder: string;
+	sortBy: string;
+}
+
+const Filters: FunctionComponent<FiltersProps> = async ({ sortOrder, sortBy }) => {
+	const guitarTypes = await serverClient.getGuitarTypes();
+	console.log(guitarTypes);
 	return (
 		<Card className='h-fit min-w-[250px]'>
 			<CardHeader className='text-2xl font-cal-sans py-4'>Filters</CardHeader>
 			<CardContent>
-				<FilterCheckboxes guitarKinds={guitarKinds} />
+				<FilterCheckboxes sortOrder={sortOrder} sortBy={sortBy} guitarTypes={guitarTypes} />
 				<h2 className='text-muted-foreground mt-4 mb-2'>Sort</h2>
 				<SortingDropdown />
 			</CardContent>

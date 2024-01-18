@@ -37,9 +37,9 @@ export const appRouter = router({
 				totalGuitarsCount,
 			};
 		}),
-	getGuitarKinds: publicProcedure.query(async () => {
-		const kinds = await prisma.guitar.findMany({ select: { type: true }, distinct: ['type'] });
-		return kinds;
+	getGuitarTypes: publicProcedure.query(async () => {
+		const types = await prisma.guitar.findMany({ select: { type: true }, distinct: ['type'] });
+		return types;
 	}),
 	findGuitarsByKind: publicProcedure
 		.input(z.object({ kind: z.nativeEnum(Kind) }))

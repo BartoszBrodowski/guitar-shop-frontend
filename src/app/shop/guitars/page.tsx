@@ -9,8 +9,8 @@ const Guitars = async ({
 }) => {
 	const page = Number(searchParams['page'] ?? '1');
 	const perPage = Number(searchParams['per-page'] ?? '9');
-	const sortBy = searchParams['sort-by'] ?? 'createdAt';
-	const sortOrder = searchParams['sort-order'] ?? 'desc';
+	const sortBy = (searchParams['sort-by'] as string) ?? 'createdAt';
+	const sortOrder = (searchParams['sort-order'] as string) ?? 'desc';
 
 	const { guitars, totalGuitarsCount } = await serverClient.getGuitarPage({
 		page: page,
@@ -26,7 +26,7 @@ const Guitars = async ({
 				<h1 className='text-4xl font-semibold font-cal-sans text-left w-full mb-2'>
 					Guitars ({totalGuitarsCount})
 				</h1>
-				<GuitarsList guitarsList={guitars} />
+				<GuitarsList sortOrder={sortOrder} sortBy={sortBy} guitarsList={guitars} />
 				<PaginationControl page={page} perPage={perPage} totalPages={totalPages} />
 			</div>
 		</div>
