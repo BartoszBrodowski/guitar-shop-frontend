@@ -20,16 +20,22 @@ export const appRouter = router({
 				perPage: z.number(),
 				sortOrder: z.string(),
 				sortField: z.string(),
+				typeFilters: z.array(z.nativeEnum(Type)).optional(),
 			})
 		)
 		.query(async ({ input }) => {
-			const { page, perPage, sortOrder, sortField } = input;
-			const guitars = await prisma.guitar.findMany({
+			const { page, perPage, sortOrder, sortField, typeFilters } = input;
+			const baseQuery = {
 				skip: (page - 1) * perPage,
 				take: perPage,
 				orderBy: [{ [sortField]: sortOrder }],
-			});
+			};
 
+			const guitarsQuery = typeFilters
+				? { ...baseQuery, where: { type: { in: typeFilters } } }
+				: baseQuery;
+
+			const guitars = await prisma.guitar.findMany(guitarsQuery);
 			const totalGuitarsCount = await prisma.guitar.count();
 
 			return {
@@ -38,8 +44,14 @@ export const appRouter = router({
 			};
 		}),
 	getGuitarTypes: publicProcedure.query(async () => {
-		const types = await prisma.guitar.findMany({ select: { type: true }, distinct: ['type'] });
-		return types;
+		const types = await prisma.guitar.groupBy({
+			by: ['type'],
+			_count: { type: true },
+		});
+
+		const result = types.map(({ type, _count }) => ({ type, amount: _count.type }));
+
+		return result;
 	}),
 	findGuitarsByKind: publicProcedure
 		.input(z.object({ kind: z.nativeEnum(Kind) }))
